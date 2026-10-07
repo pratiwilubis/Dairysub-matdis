@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DairySub – Rooted Tree Substitution System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <strong class="logo">DairySub</strong>
+  <nav>
+    <button class="nav-btn active" data-page="home">Beranda</button>
+    <button class="nav-btn" data-page="search">Cari Substitusi</button>
+    <button class="nav-btn" data-page="about">Tentang</button>
+  </nav>
+  <button id="themeToggle" aria-label="Ganti tema">🌙</button>
+</header>
+
+<main>
+<section id="home" class="page active">
+  <p class="muted">Matematika Diskrit</p>
+  <h1>Temukan pengganti bahan dairy tanpa menebak.</h1>
+  <p class="lead">Rekomendasi substitusi berdasarkan kemiripan fungsi, gizi, dan rasa, lengkap dengan jalur di General Rooted Tree dan rujukan jurnal.</p>
+  <button id="startBtn" class="btn">Mulai mencari</button>
+  <div class="stats">
+    <div><b id="statSrc">9</b><span>bahan sumber</span></div>
+    <div><b id="statSub">18</b><span>bahan pengganti</span></div>
+    <div><b>LCA</b><span>titik temu di pohon</span></div>
+  </div>
+</section>
+
+<section id="search" class="page">
+  <h2>Cari substitusi bahan</h2>
+  <p class="muted">Pilih bahan yang ingin diganti. Bahan pengganti selalu bahan baru dan tidak pernah bolak-balik ke bahan sumber.</p>
+  <div class="form">
+    <label>Bahan yang ingin diganti
+      <select id="ingredient"><option value="">Pilih bahan</option></select>
+    </label>
+    <label>Prioritas
+      <select id="priority">
+        <option value="overall">Kemiripan keseluruhan</option>
+        <option value="function">Fungsi di resep</option>
+        <option value="nutrition">Gizi</option>
+        <option value="taste">Rasa</option>
+      </select>
+    </label>
+    <button id="searchBtn" class="btn">Cari substitusi</button>
+  </div>
+
+  <div id="resultSection" hidden>
+    <div class="swap">
+      <div class="chip"><small id="originalCategory"></small><b id="originalName"></b></div>
+      <span class="arrow">→</span>
+      <div class="chip hit"><small id="substituteCategory"></small><b id="substituteName"></b></div>
+    </div>
+    <div id="altRow" class="alts"></div>
+
+    <h3>Kenapa bahan ini dipilih?</h3>
+    <div class="scores">
+      <div class="score"><span>Fungsi</span><b id="functionScore"></b><div class="bar"><i id="functionBar"></i></div><p id="functionText"></p></div>
+      <div class="score"><span>Gizi</span><b id="nutritionScore"></b><div class="bar"><i id="nutritionBar"></i></div><p id="nutritionText"></p></div>
+      <div class="score"><span>Rasa</span><b id="tasteScore"></b><div class="bar"><i id="tasteBar"></i></div><p id="tasteText"></p></div>
+    </div>
+    <p class="overall">Kemiripan keseluruhan <b id="overallScore"></b> · <span id="overallText"></span></p>
+
+    <h3>Rujukan</h3>
+    <ol id="refList" class="refs"></ol>
+    <p class="note">Skor adalah estimasi yang disusun dari temuan kualitatif pada rujukan di atas, bukan angka yang dikutip langsung dari jurnal.</p>
+
+    <button id="treeBtn" class="btn ghost">Lihat Rooted Tree</button>
+  </div>
+
+  <div id="treeSection" hidden>
+    <h3>General Rooted Tree</h3>
+    <p id="lcaInfo" class="muted"></p>
+    <div class="legend"><span class="k source"></span>Bahan dipilih <span class="k result"></span>Substitusi <span class="k lca"></span>LCA <span class="k alt"></span>Alternatif lain</div>
+    <div class="tree-wrap"><svg id="treeSvg" role="img" aria-label="Rooted tree"></svg></div>
+  </div>
+</section>
+
+<section id="about" class="page">
+  <h2>Tentang proyek</h2>
+  <p class="lead">Prototype General Rooted Tree untuk mata kuliah Matematika Diskrit.</p>
+  <dl>
+    <dt>Root</dt><dd>Produk Dairy &amp; Alternatifnya, tingkat paling atas.</dd>
+    <dt>Parent</dt><dd>Kelompok dan kategori seperti Susu Cair, Lemak Padat, Keju, serta Hewani dan Nabati.</dd>
+    <dt>Leaf</dt><dd>Bahan di tingkat paling bawah, misalnya Mentega, Susu Oat, atau Puree Alpukat.</dd>
+    <dt>LCA</dt><dd>Lowest Common Ancestor: titik temu terdekat antara bahan sumber dan pengganti.</dd>
+    <dt>Tanpa siklus</dt><dd>Bahan pengganti bukan bahan sumber, jadi relasi A→B tidak pernah kembali B→A.</dd>
+  </dl>
+</section>
+</main>
+<footer>DairySub · Implementasi General Rooted Tree · Matematika Diskrit</footer>
+<script src="script.js"></script>
+</body>
+</html>
